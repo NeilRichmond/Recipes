@@ -13,7 +13,7 @@ namespace Recipes.Classes
         /// <summary>
         /// Unsecurely storing the login info
         /// </summary>
-        private static string connectionString = "Server=localhost;Database=food;Uid=root;Pwd=Spring123;";
+        private static string connectionString = "Server=localhost;Database=food;Uid=root;Pwd=a;";
 
         /// <summary>
         /// For storing a local copy of the data if needed
