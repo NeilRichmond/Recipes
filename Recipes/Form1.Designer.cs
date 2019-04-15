@@ -28,22 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtVariant = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.listVariant = new System.Windows.Forms.ListBox();
+            this.txtNameFilter = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtNameFilter = new System.Windows.Forms.TextBox();
-            this.ingredientBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.listVariant = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtVariant = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ingredientBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -73,6 +70,49 @@
             this.tabPage1.Text = "Ingredients";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // txtVariant
+            // 
+            this.txtVariant.Location = new System.Drawing.Point(123, 167);
+            this.txtVariant.Name = "txtVariant";
+            this.txtVariant.Size = new System.Drawing.Size(119, 20);
+            this.txtVariant.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(155, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 17);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Variant";
+            // 
+            // listVariant
+            // 
+            this.listVariant.FormattingEnabled = true;
+            this.listVariant.Location = new System.Drawing.Point(123, 27);
+            this.listVariant.Name = "listVariant";
+            this.listVariant.Size = new System.Drawing.Size(119, 134);
+            this.listVariant.TabIndex = 5;
+            // 
+            // txtNameFilter
+            // 
+            this.txtNameFilter.Location = new System.Drawing.Point(9, 168);
+            this.txtNameFilter.Name = "txtNameFilter";
+            this.txtNameFilter.Size = new System.Drawing.Size(108, 20);
+            this.txtNameFilter.TabIndex = 4;
+            this.txtNameFilter.TextChanged += new System.EventHandler(this.txtNameFilter_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(39, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(45, 17);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Name";
+            // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -100,53 +140,6 @@
             this.tabPage2.Text = "Recipies";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(39, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 17);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Name";
-            // 
-            // txtNameFilter
-            // 
-            this.txtNameFilter.Location = new System.Drawing.Point(9, 168);
-            this.txtNameFilter.Name = "txtNameFilter";
-            this.txtNameFilter.Size = new System.Drawing.Size(108, 20);
-            this.txtNameFilter.TabIndex = 4;
-            this.txtNameFilter.TextChanged += new System.EventHandler(this.txtNameFilter_TextChanged);
-            // 
-            // ingredientBindingSource
-            // 
-            this.ingredientBindingSource.DataSource = typeof(Recipes.Classes.Ingredient);
-            // 
-            // listVariant
-            // 
-            this.listVariant.FormattingEnabled = true;
-            this.listVariant.Location = new System.Drawing.Point(123, 27);
-            this.listVariant.Name = "listVariant";
-            this.listVariant.Size = new System.Drawing.Size(119, 134);
-            this.listVariant.TabIndex = 5;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(155, 7);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 17);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Variant";
-            // 
-            // txtVariant
-            // 
-            this.txtVariant.Location = new System.Drawing.Point(123, 167);
-            this.txtVariant.Name = "txtVariant";
-            this.txtVariant.Size = new System.Drawing.Size(119, 20);
-            this.txtVariant.TabIndex = 7;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -160,7 +153,6 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ingredientBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -172,7 +164,6 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.BindingSource ingredientBindingSource;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtNameFilter;
         private System.Windows.Forms.TextBox txtVariant;
