@@ -74,7 +74,7 @@ namespace Recipes.Classes
             return newTable;
         }
 
-        public static DataTable Filter(string column, string item)
+        public static DataView Filter(string column, string item)
         {
             DataTable newTable = new DataTable();
             string command = "SELECT * FROM ingredient WHERE " + column + "='" + item + "'";
@@ -83,16 +83,62 @@ namespace Recipes.Classes
                 MySqlDataAdapter adapter = new MySqlDataAdapter(command, connection);
                 adapter.Fill(newTable);
             }
-            return newTable;
+
+            return newTable.AsDataView();
         }
 
-        public static DataView FilterDV(DataTable t1, string c, string i)
+        public static DataView SelectSingleColumn(string column, string condition1, string item)
+        {
+            DataTable newTable = new DataTable();
+            string command = "SELECT " + column + " FROM ingredient WHERE " + column + "='" + item + "'";
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlDataAdapter adapter = new MySqlDataAdapter(command, connection);
+                adapter.Fill(newTable);
+            }
+
+            return newTable.AsDataView();
+        }
+
+        public static DataView QueryDataView(string q)
+        {
+            DataTable newTable = new DataTable();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                MySqlDataAdapter adapter = new MySqlDataAdapter(q, connection);
+                adapter.Fill(newTable);
+            }
+
+            return newTable.AsDataView();
+        }
+
+        public static List<string> QueryList(string q, string columnName)
+        {
+            DataTable newTable = new DataTable();
+            List<string> s = new List<string>();
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand(q, connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            s.Add((string)reader[columnName]);
+                        }
+                    }
+                }
+            }
+            return s;
+        }
+
+        public static DataView FilterDV(DataView t1, string c, string i)
         {
             string q = c + " Like '%" + i + "%'";
-            DataView dv = new DataView(t1);
-            dv.RowFilter = q; // query example = "id = 10"
+            t1.RowFilter = q; // query example = "id = 10"
 
-            return dv;
+            return t1;
         }
     }
 }

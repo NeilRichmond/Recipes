@@ -10,7 +10,7 @@ namespace Recipes
     {
         List<Ingredient> ingredients = new List<Ingredient>();
         DataTable myTable = new DataTable();
-        DBAccess myDBAccess = new DBAccess();
+        DataView myView = new DataView();
 
         public Form1()
         {
@@ -19,24 +19,35 @@ namespace Recipes
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            myTable = DBAccess.GetTable();
+            myView = myTable.AsDataView();
+
             PopulateList();
             DisplayList();
             FillDataDridView();
+
         }
 
         private void DisplayList()
         {
+            string s = "";
             foreach(Ingredient i in ingredients)
             {
-                if(!listBox1.Items.Contains(i.name))
+                if(!listBox1.Items.Contains(i.type))
                 {
-                    listBox1.Items.Add(i.name);
+                    listBox1.Items.Add(i.type);
                 }
-                if(!listVariant.Items.Contains(i.variant))
+                s = i.name + ", " + i.variant;
+                if(!listVariant.Items.Contains(s))
                 {
-                    listVariant.Items.Add(i.variant);
+                    listVariant.Items.Add(s);
                 }
-                
+                if (!listTypes.Items.Contains(i.type))
+                {
+                    listTypes.Items.Add(i.type);
+                    cmbType.Items.Add(i.type);
+                }
+
             }
         }
 
@@ -55,9 +66,8 @@ namespace Recipes
         /// </summary>
         private void FillDataDridView()
         {
-            myTable = DBAccess.GetTable();
-            dataGridView1.DataSource = myTable;
-            dataGridView1.Columns["ingredient_id"].Visible = false; //To hide a column
+            dataGridView1.DataSource = myView;
+            dataGridView1.Columns["ingredient_id"].Visible = false; //To hide id column
         }
 
         /// <summary>
@@ -67,13 +77,16 @@ namespace Recipes
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             string s = listBox1.GetItemText(listBox1.SelectedItem);
-            dataGridView1.DataSource = DBAccess.FilterDV(myTable, "name", s);
+            //dataGridView1.DataSource = DBAccess.FilterDV(myTable, "name", s);
+            myView = DBAccess.FilterDV(myView, "name", s);
+            FillDataDridView();
             UpdateVariantList(s);
         }
 
         private void txtNameFilter_TextChanged(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = DBAccess.FilterDV(myTable, "name", txtNameFilter.Text);
+            dataGridView1.DataSource = DBAccess.FilterDV(myView, "name", txtNameFilter.Text);
+            UpdateVariantList(txtNameFilter.Text); //Will only work when the whole item is typed out, case sensitive
         }
 
         private void UpdateVariantList(string s)
@@ -86,6 +99,36 @@ namespace Recipes
                     listVariant.Items.Add(i.variant);
                 }
             }
+        }
+
+        private void UpdateTypesList(string s)
+        {
+            listTypes.Items.Clear();
+            foreach (Ingredient i in ingredients)
+            {
+                if (i.type == s && !listTypes.Items.Contains(i.type))
+                {
+                    listTypes.Items.Add(i.type);
+                }
+            }
+
+            myView = DBAccess.Filter("type", s);
+            FillDataDridView();
+        }
+
+        private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateTypesList(cmbType.GetItemText(cmbType.SelectedItem));
+        }
+
+        private void listTypes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            listBox2.DataSource = DBAccess.QueryList(textBox1.Text, textBox2.Text);
         }
     }
 }
